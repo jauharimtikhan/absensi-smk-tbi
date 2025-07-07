@@ -9,6 +9,7 @@ import { CircularProgress } from "./AdminPage";
 import { router } from "@inertiajs/react";
 import { Schedule } from "@/types/schedule";
 import ButtonForm from "@/components/button-form";
+import { CalendarIcon } from "lucide-react";
 interface GuruPageProps extends PageProps {
     statistikPerKelas: {
         nama_kelas: string;
@@ -16,7 +17,7 @@ interface GuruPageProps extends PageProps {
         presentStudent: number;
         remaining_percentage: number;
     }[];
-    jadwal_hari_ini: Schedule[];
+    jadwal_hari_ini?: Schedule[];
 }
 
 export default function GuruPage({
@@ -27,6 +28,7 @@ export default function GuruPage({
 }: GuruPageProps) {
     useToast(alert);
     const { user } = auth;
+    const hasJadwal = jadwal_hari_ini && jadwal_hari_ini.length > 0;
     if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(user.api_token);
     }
@@ -46,35 +48,41 @@ export default function GuruPage({
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {jadwal_hari_ini.map((cls) => (
-                                <div
-                                    key={cls.id}
-                                    className="flex justify-between items-center border-b pb-3"
-                                >
-                                    <div>
-                                        <h4 className="font-medium">
-                                            {cls.mata_pelajarans.nama_mapel} -{" "}
-                                            {cls.kelas.nama_kelas}
-                                        </h4>
-                                        <p className="text-sm text-gray-600">
-                                            {cls.jam_mulai} - {cls.jam_selesai}
-                                        </p>
+                            {!hasJadwal ? (
+                                <JadwalKosongFallback />
+                            ) : (
+                                jadwal_hari_ini.map((cls) => (
+                                    <div
+                                        key={cls.id}
+                                        className="flex justify-between items-center border-b pb-3"
+                                    >
+                                        <div>
+                                            <h4 className="font-medium">
+                                                {cls.mata_pelajarans.nama_mapel}{" "}
+                                                - {cls.kelas.nama_kelas}
+                                            </h4>
+                                            <p className="text-sm text-gray-600">
+                                                {cls.jam_mulai} -{" "}
+                                                {cls.jam_selesai}
+                                            </p>
+                                        </div>
+                                        <ButtonForm
+                                            size={"sm"}
+                                            label="Ambil Absensi"
+                                            onClick={() =>
+                                                router.get(
+                                                    route("absensi.index", {
+                                                        kelas_id: cls.kelas.id,
+                                                        mapel_id:
+                                                            cls.mata_pelajarans
+                                                                .id,
+                                                    })
+                                                )
+                                            }
+                                        />
                                     </div>
-                                    <ButtonForm
-                                        size={"sm"}
-                                        label="Ambil Absensi"
-                                        onClick={() =>
-                                            router.get(
-                                                route("absensi.index", {
-                                                    kelas_id: cls.kelas.id,
-                                                    mapel_id:
-                                                        cls.mata_pelajarans.id,
-                                                })
-                                            )
-                                        }
-                                    />
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
                     </CardContent>
                 </Card>
@@ -152,3 +160,21 @@ export default function GuruPage({
         </AuthenticatedLayout>
     );
 }
+
+const JadwalKosongFallback = () => (
+    <div className="flex flex-col items-center justify-center py-8 text-center">
+        <CalendarIcon className="w-12 h-12 text-gray-400 mb-4" />
+        <h3 className="text-lg font-medium text-gray-900 mb-1">
+            Tidak Ada Jadwal Hari Ini
+        </h3>
+        <p className="text-gray-500 mb-4">
+            Anda tidak memiliki jadwal mengajar untuk hari ini.
+        </p>
+        <Button
+            variant="outline"
+            onClick={() => router.get(route("jadwal.index"))}
+        >
+            Lihat Jadwal Lengkap
+        </Button>
+    </div>
+);
