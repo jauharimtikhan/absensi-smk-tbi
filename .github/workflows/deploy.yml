@@ -30,8 +30,7 @@ jobs:
         run: npm run build
 
       - name: 📦 Archive Build Files
-        run: |
-          tar czf laravel-app.tar.gz . --exclude=vendor --exclude=node_modules
+        run: tar --exclude=vendor --exclude=node_modules -czf laravel-app.tar.gz .
 
       - name: 🚀 Deploy via SSH
         uses: appleboy/scp-action@v0.1.6
