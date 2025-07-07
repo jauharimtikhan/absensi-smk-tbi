@@ -29,45 +29,33 @@ jobs:
       - name: ⚙️ Build Frontend (Vite)
         run: npm run build
 
-      - name: 📦 Archive Build Files
-        run: tar --exclude=vendor --exclude=node_modules -czf laravel-app.tar.gz .
-
-      - name: 🚀 Deploy via SSH
-        uses: appleboy/scp-action@v0.1.6
+     -  name: 🚀 Upload to VPS via rsync
+        uses: burnett01/rsync-deployments@v2
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "laravel-app.tar.gz"
-          target: ${{ secrets.VPS_PATH }}
+          switches: -avz --delete --exclude=node_modules --exclude=vendor --exclude=.git
+          path: ./
+          remote_path: ${{ secrets.VPS_PATH }}/release
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.VPS_SSH_KEY }}
 
-      - name: 🖥️ SSH & Deploy Commands
+
+      - name: 🖥️ Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd ${{ secrets.VPS_PATH }}
-            rm -rf release
-            mkdir release
-            tar xzf laravel-app.tar.gz -C release
-            rm laravel-app.tar.gz
-            cd release
+            cd ${{ secrets.VPS_PATH }}/release
 
-            # Optional: move .env production version
             cp ../.env .env
-
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-
             php artisan storage:link
 
-            # Optional: set permissions
-            chown -R www-data:www-data .
             chmod -R 775 storage bootstrap/cache
 
-            # Optional: symlink for zero-downtime (advanced)
