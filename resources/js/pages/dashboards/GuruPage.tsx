@@ -11,7 +11,7 @@ import { Schedule } from "@/types/schedule";
 import ButtonForm from "@/components/button-form";
 import { CalendarIcon } from "lucide-react";
 interface GuruPageProps extends PageProps {
-    statistikPerKelas: {
+    statistikPerKelas?: {
         nama_kelas: string;
         siswa: number;
         presentStudent: number;
@@ -29,6 +29,7 @@ export default function GuruPage({
     useToast(alert);
     const { user } = auth;
     const hasJadwal = jadwal_hari_ini && jadwal_hari_ini.length > 0;
+    const hasStatistik = statistikPerKelas && statistikPerKelas.length > 0;
     if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(user.api_token);
     }
@@ -87,80 +88,98 @@ export default function GuruPage({
                     </CardContent>
                 </Card>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Statistik Kelas</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <Tabs
-                                defaultValue={statistikPerKelas[0].nama_kelas}
-                                className="w-full"
-                            >
-                                <TabsList className="w-full overflow-auto">
+                {!hasStatistik ? (
+                    <StatKosongFallback />
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Statistik Kelas</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <Tabs
+                                    defaultValue={
+                                        statistikPerKelas[0].nama_kelas
+                                    }
+                                    className="w-full"
+                                >
+                                    <TabsList className="w-full overflow-auto">
+                                        {statistikPerKelas.map(
+                                            (stat, index) => (
+                                                <TabsTrigger
+                                                    value={stat.nama_kelas}
+                                                    key={index}
+                                                >
+                                                    {stat.nama_kelas}
+                                                </TabsTrigger>
+                                            )
+                                        )}
+                                    </TabsList>
                                     {statistikPerKelas.map((stat, index) => (
-                                        <TabsTrigger
+                                        <TabsContent
                                             value={stat.nama_kelas}
                                             key={index}
                                         >
-                                            {stat.nama_kelas}
-                                        </TabsTrigger>
+                                            <h1>Kehadiran Hari Ini</h1>
+                                            <div className="flex justify-center items-center">
+                                                <CircularProgress
+                                                    value={
+                                                        stat.remaining_percentage
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="ml-4">
+                                                <p className="text-2xl font-bold">
+                                                    {stat.remaining_percentage}%
+                                                </p>
+                                                <p className="text-sm text-gray-500">
+                                                    {stat.siswa -
+                                                        stat.presentStudent}{" "}
+                                                    dari {stat.siswa} siswa
+                                                    belum absen
+                                                </p>
+                                            </div>
+                                        </TabsContent>
                                     ))}
-                                </TabsList>
-                                {statistikPerKelas.map((stat, index) => (
-                                    <TabsContent
-                                        value={stat.nama_kelas}
-                                        key={index}
-                                    >
-                                        <h1>Kehadiran Hari Ini</h1>
-                                        <div className="flex justify-center items-center">
-                                            <CircularProgress
-                                                value={
-                                                    stat.remaining_percentage
-                                                }
-                                            />
-                                        </div>
-                                        <div className="ml-4">
-                                            <p className="text-2xl font-bold">
-                                                {stat.remaining_percentage}%
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                {stat.siswa -
-                                                    stat.presentStudent}{" "}
-                                                dari {stat.siswa} siswa belum
-                                                absen
-                                            </p>
-                                        </div>
-                                    </TabsContent>
-                                ))}
-                            </Tabs>
-                        </CardContent>
-                    </Card>
+                                </Tabs>
+                            </CardContent>
+                        </Card>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Aksi</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-col space-y-3">
-                                <Button
-                                    variant="secondary"
-                                    onClick={() =>
-                                        router.get(route("laporan.semester"))
-                                    }
-                                >
-                                    Rekap Semester
-                                </Button>
-                                {/* <Button variant="outline">Input Nilai</Button> */}
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Aksi</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-col space-y-3">
+                                    <Button
+                                        variant="secondary"
+                                        onClick={() =>
+                                            router.get(
+                                                route("laporan.semester")
+                                            )
+                                        }
+                                    >
+                                        Rekap Semester
+                                    </Button>
+                                    {/* <Button variant="outline">Input Nilai</Button> */}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                )}
             </div>
         </AuthenticatedLayout>
     );
 }
 
+const StatKosongFallback = () => (
+    <div className="flex flex-col items-center justify-center py-8 text-center">
+        <CalendarIcon className="w-12 h-12 text-gray-400 mb-4" />
+        <h3 className="text-lg font-medium text-gray-900 mb-1">
+            Tidak Ada Data
+        </h3>
+    </div>
+);
 const JadwalKosongFallback = () => (
     <div className="flex flex-col items-center justify-center py-8 text-center">
         <CalendarIcon className="w-12 h-12 text-gray-400 mb-4" />
