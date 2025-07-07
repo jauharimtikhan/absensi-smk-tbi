@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://absensi.pandawatechnomedia.com/build/sw.js', { scope: 'https://absensi.pandawatechnomedia.com/build/' })})}
