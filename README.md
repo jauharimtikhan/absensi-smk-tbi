@@ -1,61 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Absensi Sekolah SMK Plus Khoiriyah Hasyim Tebuireng
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Dashboard Preview](https://absensi.pandawatechnomedia.com/dash.png)  
+_Tampilan dashboard Admin sistem absensi_
 
-## About Laravel
+## 🚀 Tentang Sistem Ini
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sistem Absensi Digital SMK Plus Khoiriyah Hasyim Tebuireng adalah solusi modern untuk manajemen kehadiran berbasis web yang dirancang khusus untuk meningkatkan efisiensi administrasi sekolah. Dengan antarmuka yang intuitif dan fitur canggih, sistem ini membantu:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Mencatat kehadiran siswa/guru secara real-time
+-   Mengurangi beban administrasi manual
+-   Menghasilkan laporan kehadiran instan
+-   Meningkatkan akurasi data akademik
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> "Teknologi pendidikan yang mengubah cara sekolah mengelola presensi"
 
-## Learning Laravel
+## ✨ Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 📱 Multi-platform Access
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   Responsif di semua perangkat (desktop, tablet, smartphone)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🔒 Sistem Keamanan
 
-## Laravel Sponsors
+-   Autentikasi multi-role (admin, guru)
+-   Enkripsi data end-to-end
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 📊 Dashboard Analitik
 
-### Premium Partners
+-   Visualisasi data kehadiran interaktif
+-   Statistik kehadiran per kelas, jurusan, dan individu
+-   Peringatan untuk pola ketidakhadiran mencurigakan
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 📝 Manajemen Otomatis
 
-## Contributing
+-   Generator jadwal otomatis
+-   Ekspor laporan ke Excel/PDF dengan satu klik
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 🔔 Notifikasi Real-time
 
-## Code of Conduct
+-   Pemberitahuan langsung ke orang tua via WhatsApp/Email (TODO)
+-   Pengingat jadwal untuk guru dan siswa (TODO)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠 Teknologi Yang Digunakan
 
-## Security Vulnerabilities
+**Frontend:**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   React.js + TypeScript
+-   Tailwind CSS
+-   Redux Toolkit
+-   Rechart.js untuk visualisasi data
+-   Shadcn Ui
 
-## License
+**Backend:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Laravel
+-   Mysql
+-   Redis untuk caching
+
+**Infrastruktur:**
+
+-   Docker containerization
+-   CI/CD dengan GitHub Actions
+-   Deploy AliBaba ECS VPS Ubuntu Server 22
+
+**Download Applikasi**
+
+-   [Android](https://store.pandawatechnomedia.com/absensi.apk)
+
+## 👥Beberapa Peran Pengguna
+
+| Peran     | Fitur Khusus                                        |
+| --------- | --------------------------------------------------- |
+| **Admin** | Manajemen pengguna, konfigurasi sistem, backup data |
+| **Guru**  | Absensi kelas, rekap Semester                       |
+
+## 🌟 Tentang SMK Plus Khoiriyah Hasyim Tebuireng
+
+![Sekolah Logo](https://absensi.pandawatechnomedia.com/icon.png)  
+**Visi:**  
+Menjadi sekolah unggulan pencetak lulusan yang memiliki keahlian dan berkarakter pesantren Tebuireng
+
+**Program Unggulan:**
+
+-   Multimedia
+-   DKV
+
+Alamat: Jln. K.H. Hasyim Asyari No. 31
+Balongbesuk Diwek Jombang 61471
+Telp. 085733373730  
+Website: [www.smkpluskhoiriyah.sch.id](https://sites.google.com/view/smktebuireng)
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).
+
+---
+
+**Dikembangkan dengan penuh ❤️ oleh Jauhar Imtikhan (Alumni SMK Plus Khoiriyah Hasyim Tebuireng)**  
+© 2025 SMK Plus Khoiriyah Hasyim Tebuireng | Inovasi untuk Pendidikan Bermutu
