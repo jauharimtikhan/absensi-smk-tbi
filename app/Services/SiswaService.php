@@ -115,9 +115,11 @@ class SiswaService
       ]);
     }
     $siswa->nama_lengkap = $request->nama_lengkap;
-    $siswa->alamat = $request->alamat;
-    $siswa->no_wali = $request->no_wali;
+    $siswa->nis = $request->nis;
+    $siswa->jenis_kelamin = $request->jenis_kelamin;
     $siswa->kelas = $request->kelas;
+    $siswa->status = $request->status;
+    $siswa->jurusan = $request->jurusan;
     $siswa->save();
 
     return to_route('siswa.edit', $id)->with('alert', [
