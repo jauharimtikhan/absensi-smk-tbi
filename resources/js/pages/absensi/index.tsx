@@ -249,7 +249,7 @@ const SiswaTableRow = ({
             <TableCell>
                 <Select2
                     options={
-                        role === "super-admin"
+                        role === "super-admin" || role === "bk"
                             ? [
                                   ...statusAbsensi,
                                   { label: "Telat", value: "telat" },
