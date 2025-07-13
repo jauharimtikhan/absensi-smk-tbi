@@ -1,1 +1,0 @@
-import{r as t,V as s}from"./app-Be7wcuig.js";function c(e){t.useEffect(()=>{e&&(e.type==="success"&&e.message&&s.success(e.message),e.type==="error"&&e.message&&s.error(e.message))},[e])}export{c as u};
