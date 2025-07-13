@@ -48,7 +48,7 @@ class JadwalKBMService
         return [
             'schedules' => $schedules,
             'filterOptions' => [
-                'hari' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', "Ahad"],
+                'hari' => ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', "ahad"],
                 'kelas' => Kelas::select('id', 'nama_kelas')->get(),
                 'guru' => User::with('profileGuru')->select('id', 'username as nama')->get(),
                 'mapel' => Mapel::select('id', 'nama_mapel')->get(),
@@ -72,10 +72,10 @@ class JadwalKBMService
             ->exists();
 
         if ($conflict) {
-            return response()->json([
+            return $this->redirectWithAlert('jadwalkbm.index', [
                 'message' => 'Konflik jadwal: Kelas sudah memiliki jadwal pada waktu tersebut',
                 'errors' => ['jam_mulai' => ['Konflik jadwal']]
-            ], 422);
+            ]);
         }
 
         $schedule = $this->jadwalKBM->create($request->validated());

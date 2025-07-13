@@ -27,10 +27,15 @@ const ScheduleCalendar: React.FC<ScheduleCalendarProps> = ({
     const [date, setDate] = useState<Date>(new Date());
 
     const getSchedulesForDay = (day: Date) => {
-        const dayName = format(day, "EEEE", { locale: id });
-        return schedules.filter(
-            (schedule) => schedule.hari.toLowerCase() === dayName.toLowerCase()
-        );
+        let dayName = format(day, "EEEE", { locale: id }).toLowerCase();
+
+        return schedules.filter((schedule) => {
+            let scheduleDay =
+                schedule.hari.toLowerCase() === "ahad"
+                    ? "minggu"
+                    : schedule.hari.toLowerCase();
+            return scheduleDay === dayName;
+        });
     };
 
     const daySchedules = getSchedulesForDay(date);

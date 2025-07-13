@@ -15,7 +15,7 @@ class StoreScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'hari' => ['required', 'string', Rule::in(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Ahad'])],
+            'hari' => ['required', 'string', Rule::in(['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'ahad'])],
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'mapel_id' => 'required|exists:mapels,id',

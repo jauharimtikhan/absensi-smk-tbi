@@ -53,7 +53,11 @@ const ScheduleFilters: React.FC<ScheduleFiltersProps> = ({
                         <SelectContent>
                             <SelectItem value="all">Semua Hari</SelectItem>
                             {filterOptions.hari.map((day) => (
-                                <SelectItem key={day} value={day}>
+                                <SelectItem
+                                    className="capitalize"
+                                    key={day}
+                                    value={day}
+                                >
                                     {day}
                                 </SelectItem>
                             ))}

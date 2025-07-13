@@ -108,7 +108,11 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({
                                 </SelectTrigger>
                                 <SelectContent>
                                     {filterOptions.hari.map((day) => (
-                                        <SelectItem key={day} value={day}>
+                                        <SelectItem
+                                            className="capitalize"
+                                            key={day}
+                                            value={day}
+                                        >
                                             {day}
                                         </SelectItem>
                                     ))}
